@@ -1,25 +1,19 @@
-# ---- Python ----
+# Python
 __pycache__/
-*.py[cod]
-*.pyo
-*.pyd
+*.pyc
 
-# ---- Virtual Environments ----
+# Virtual environments
 venv/
 .env/
 
-# ---- Data (DO NOT TRACK DATASETS) ----
+# Data & outputs (ignored on purpose)
 data/
-*.csv
-
-# ---- Results & Outputs ----
 results/
 pp/
-
-# ---- Backups ----
 Walmart_Project_backup/
 
-# ---- OS ----
+# Model artifacts (optional: ignore if large)
+*.pkl
+
+# OS
 .DS_Store
-
-
