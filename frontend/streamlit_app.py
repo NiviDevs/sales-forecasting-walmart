@@ -29,22 +29,24 @@ st.title("Walmart Demand Forecasting")
 # =========================================================
 @st.cache_data
 def load_data():
-    if not os.path.exists(DATA_PATH):
-        st.error("Dataset not found. Data folder is intentionally ignored in Git.")
-        st.stop()
-    df = pd.read_csv(DATA_PATH)
-    df["Date"] = pd.to_datetime(df["Date"], dayfirst=True, errors="coerce")
-    df = df.dropna(subset=["Date"])
+    path = "store_history.csv"
+
+    if os.path.exists(path):
+        df = pd.read_csv(path)
+        df["Date"] = pd.to_datetime(df["Date"], dayfirst=True)
+        return df
+
+    # ---- FALLBACK SAMPLE DATA FOR DEPLOYMENT ----
+    st.warning("Using sample data (CSV not found on cloud)")
+
+    dates = pd.date_range(start="2022-01-01", periods=150, freq="W")
+    df = pd.DataFrame({
+        "Date": dates,
+        "Store": 1,
+        "Weekly_Sales": np.random.normal(1_500_000, 120_000, size=len(dates))
+    })
     return df
 
-@st.cache_resource
-def load_ml_model():
-    if os.path.exists(MODEL_PATH):
-        return joblib.load(MODEL_PATH)
-    return None
-
-df = load_data()
-ml_model = load_ml_model()
 
 # =========================================================
 # UI CONTROLS
