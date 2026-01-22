@@ -82,7 +82,7 @@ def temp_effect(t):
 
 def base_prediction():
     return (
-        # CONST
+        CONST
         + COEF_HOLIDAY * int(holiday_flag)
         + COEF_FUEL * fuel_price
         + COEF_CPI * cpi
